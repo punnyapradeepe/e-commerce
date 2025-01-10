@@ -6,7 +6,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import HomeScreen from '../Screens/HomeScreen';
-import FavoriteScreen from '../Screens/FavoriteScreen';
+import ShoppingScreen from '../Screens/ShoppingScreen';
 import CartScreen from '../Screens/CartScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 
@@ -43,15 +43,15 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name='favorite'
-        component={FavoriteStack}
+        name='shopping'
+        component={ShoppingStack}
         listeners={({ navigation }) => ({
           tabPress: e => {
             e.preventDefault();
-            navigation.navigate('favorite');
+            navigation.navigate('shopping');
             navigation.reset({
               index: 0,
-              routes: [{ name: 'favorite' }],
+              routes: [{ name: 'shopping' }],
             });
           },
         })}
@@ -134,9 +134,9 @@ const HomeStack = () => (
   </Stack.Navigator>
 );
 
-const FavoriteStack = () => (
-  <Stack.Navigator initialRouteName="favorite">
-    <Stack.Screen name="favorite" component={FavoriteScreen} options={{ headerShown: true ,title:'' }} />
+const ShoppingStack = () => (
+  <Stack.Navigator initialRouteName="shoppe">
+    <Stack.Screen name="shoppe" component={ShoppingScreen} options={{ headerShown: true ,title:'' }} />
   </Stack.Navigator>
 );
 

@@ -3,17 +3,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Colors from '../Utils/Colors';
 import Feather from '@expo/vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
 
-const Products = () => {
+const ShoppingScreen = () => {
+
   const [products, setProducts] = useState([]);
-  const navigation = useNavigation()
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('https://mern-e-commerce-website-gf4v.onrender.com/api/admin/products/get');
-        setProducts(response.data.data.slice(0, 5));
+        setProducts(response.data.data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -24,7 +23,6 @@ const Products = () => {
 
   const renderProduct = ({ item }) => (
     <View style={styles.box}>
-  
       <View style={styles.productimg}>
         <Image
           source={{ uri: item.image[0] }} 
@@ -39,15 +37,14 @@ const Products = () => {
      <Text style={styles.percenttext}>50%</Text>
      </View>
      </View>
-         <View style={styles.btncenter}>
-        <TouchableOpacity style={styles.btn}
-        >
+         {/* <View style={styles.btncenter}>
+        <TouchableOpacity style={styles.btn}>
           <Text style={styles.btntext}>Add to cart</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       </View>
         <View style={styles.ratingstar}>
-        <Image source={require('./../../assets/Images/Rating Group.png')}/>
+        <Image source={require('./../../assets/Images/Rating Group.png')} style={{}}/>
         </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{item.productTitle}</Text>
@@ -61,45 +58,42 @@ const Products = () => {
 
   return (
     <View style={styles.container}>
-        <View style={styles.textcontainer}>
-            <View style={styles.newtitle}>
-            <Text style={styles.newt}>New</Text>
-            <Text style={styles.newt}>Arrivals</Text>
-            </View>
-            <TouchableOpacity style={styles.moreview}
-            onPress={()=>navigation.navigate('shopping')}
-            >
-            <Text style={styles.more}>More Products</Text>
-            <Feather name="arrow-right" size={12} color="black" style={{ marginLeft: 4 }} />
-            </TouchableOpacity>
-        </View>
-      <FlatList
+      <View>
+         <Image
+          source={require('./../../assets/Images/Image Placeholder header.png')} 
+          style={styles.placeholder}
+          resizeMode="cover"
+        />
+        {/* <View style={styles.absolute}>
+        <Text>Shop Page</Text>
+        <Text>Let's design the place you always imagined</Text>
+        </View> */}
+      </View>  
+        <FlatList
         data={products}
         keyExtractor={(item) => item._id}
         renderItem={renderProduct}
+        numColumns={2}
         contentContainerStyle={styles.listContainer}
-        horizontal={true}
         showsHorizontalScrollIndicator={false}
       />
     </View>
   );
 };
 
-export default Products;
-
+export default ShoppingScreen
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
+    padding:10,
     flex:1, 
-    paddingBottom:10
+  
   },
   listContainer: {
-    flexDirection:'row',
-   
+   gap:10
   },
   box: {
-    width: 150,
-    height: 230,
+    width: "50%",
+    height: 260,
     backgroundColor: Colors.white,
     marginRight:10,
     overflow: 'hidden',
@@ -125,7 +119,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: Colors.black,
-    paddingHorizontal: 30,
+    paddingHorizontal: 40,
     paddingVertical: 5,
     borderRadius: 5,
   },
@@ -141,7 +135,7 @@ const styles = StyleSheet.create({
   ratingstar:{
         top:3,
         left:3,
-        width:20,
+        width:10,
         height:20
     },
     pricecontainer:{
@@ -172,7 +166,7 @@ const styles = StyleSheet.create({
 },
 newtext:{
 fontSize:12,
-fontWeight:'bold'
+fontWeight:'600'
 },
 percent:{
     width:40,
@@ -214,5 +208,15 @@ more:{
     fontWeight:'300',
     borderBottomWidth:1,
     borderColor:'gray'
+},
+placeholder:{
+  width:"100%",
+  height:250,
+  paddingBottom:20,
+  position:'relative'
+},
+absolute:{
+  position:'absolute',
+ alignItems:'center'
 }
 });

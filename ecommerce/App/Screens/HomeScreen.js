@@ -8,7 +8,9 @@ import Products from '../Components/Products';
 
 const HomeScreen = () => {
   return (
-   <ScrollView style={styles.container}>
+   <ScrollView style={styles.container}
+   showsVerticalScrollIndicator={false}
+   >
      <Carousel/>
      <View style={styles.simplycontainer}>
       <View style={{marginTop:20}}>
@@ -59,7 +61,7 @@ const HomeScreen = () => {
       </View>
      </View>
      <Products/>
-     <Footer/>
+     {/* <Footer/> */}
     </ScrollView>
   )
 }
